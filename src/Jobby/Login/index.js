@@ -8,7 +8,7 @@ class Login extends Component {
 
   componentDidMount() {
     const jwt = Cookies.get('jwt_token')
-    console.log(jwt)
+    // console.log(jwt)
     if (jwt !== undefined) {
       const {history} = this.props
       history.push('/')
@@ -28,11 +28,11 @@ class Login extends Component {
     }
     const response = await fetch('https://apis.ccbp.in/login', options)
     const jwtToken = await response.json()
-    // console.log(response, jwtToken)
+    // console.log(jwtToken.jwt_token)
     if (response.ok === true) {
       const {history} = this.props
       history.replace('/')
-      Cookies.set('jwt_token', jwtToken, {expires: 30})
+      Cookies.set('jwt_token', jwtToken.jwt_token, {expires: 30})
       const jwt = Cookies.get('jwt_token')
       // console.log(jwt)
     }

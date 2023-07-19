@@ -1,0 +1,36 @@
+.jobs-bg {
+  background-image: url('https://assets.ccbp.in/frontend/react-js/home-lg-bg.png');
+  height: 100vh;
+  width: 100vw;
+}
+.jobs-card {
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+.profile-section {
+  width: 30%;
+}
+.profile {
+}
+.profile-container {
+  background-image: url('https://assets.ccbp.in/frontend/react-js/profile-bg.png');
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 15px;
+  align-items: flex-start;
+  background-repeat: no-repeat;
+  width: 300px;
+  background-size: auto 100%;
+}
+.name {
+  color: #6366f1;
+}
+.bio {
+  color: #2c364c;
+}
+hr {
+  width: 300px;
+  text-align: start;
+}

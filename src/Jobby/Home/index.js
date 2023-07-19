@@ -6,7 +6,7 @@ class Home extends Component {
   onclickFindJobs = () => {
     const {history} = this.props
     const jwt = Cookies.get('jwt_token')
-    //  console.log(Cookies.get())
+    //  console.log(jwt)
     history.push('/jobs')
   }
 

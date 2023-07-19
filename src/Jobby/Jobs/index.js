@@ -2,6 +2,8 @@ import {Component} from 'react'
 
 import Cookies from 'js-cookie'
 
+import './index.css'
+
 class Jobs extends Component {
   state = {name: '', profileUrl: '', bio: '', jobs: [], totalJobs: 0}
 
@@ -20,10 +22,17 @@ class Jobs extends Component {
     }
     const response = await fetch(url, options)
     const data = await response.json()
-    console.log(jwt, data)
+    this.setState({
+      name: data.profile_details.name,
+      profileUrl: data.profile_details.profile_image_url,
+      bio: data.profile_details.short_bio,
+    })
+    // console.log(data.profile_details.name)
   }
 
   render() {
+    const {name, profileUrl, bio} = this.state
+    // console.log(this.state)
     return (
       <div className="jobs-bg">
         <div className="nav">
@@ -44,9 +53,17 @@ class Jobs extends Component {
             </button>
           </div>
         </div>
-        <div>
+        <div className="jobs-card">
+          <div className="profile-section">
+            <div className="profile-container">
+              <img src={profileUrl} alt="profile" className="profile" />
+              <h1 className="name">{name}</h1>
+              <p className="bio">{bio}</p>
+            </div>
+            <hr />
+          </div>
           <div>
-            <h1>hiii</h1>
+            <h1>nwii</h1>
           </div>
         </div>
       </div>
