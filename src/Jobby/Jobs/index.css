@@ -1,6 +1,7 @@
 .jobs-bg {
   background-image: url('https://assets.ccbp.in/frontend/react-js/home-lg-bg.png');
-  height: 100vh;
+  min-height: 100vh;
+  max-height: 100%;
   width: 100vw;
 }
 .jobs-card {
@@ -22,6 +23,7 @@
   align-items: flex-start;
   background-repeat: no-repeat;
   width: 300px;
+  height: 250px;
   background-size: auto 100%;
 }
 .name {
@@ -31,6 +33,16 @@
   color: #2c364c;
 }
 hr {
-  width: 300px;
+  color: #2c364c;
+  width: 70%;
   text-align: start;
+}
+body {
+  border: 0;
+  padding: 0;
+  margin: 0;
+}
+input {
+  padding: 0;
+  margin: 0;
 }

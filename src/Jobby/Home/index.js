@@ -5,9 +5,15 @@ import './index.css'
 class Home extends Component {
   onclickFindJobs = () => {
     const {history} = this.props
-    const jwt = Cookies.get('jwt_token')
+    // const jwt = Cookies.get('jwt_token')
     //  console.log(jwt)
     history.push('/jobs')
+  }
+
+  onClickLogout = () => {
+    Cookies.remove('jwt_token')
+    const {history} = this.props
+    history.replace('/login')
   }
 
   render() {
@@ -23,10 +29,16 @@ class Home extends Component {
           </div>
           <div className="jobs-link-container">
             <h1 className="link">Home</h1>
-            <h1 className="link">Jobs</h1>
+            <h1 className="link" onClick={this.onclickFindJobs}>
+              Jobs
+            </h1>
           </div>
           <div>
-            <button type="button" className="logout-btn">
+            <button
+              type="button"
+              className="logout-btn"
+              onClick={this.onClickLogout}
+            >
               Logout
             </button>
           </div>

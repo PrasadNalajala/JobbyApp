@@ -11,12 +11,15 @@ class Login extends Component {
     // console.log(jwt)
     if (jwt !== undefined) {
       const {history} = this.props
-      history.push('/')
+      history.replace('/')
     }
   }
 
-  onLogin = async event => {
-    event.preventDefault()
+  onClickLogin = () => {
+    this.onLogin()
+  }
+
+  onLogin = async () => {
     const {username, password} = this.state
     const req = {
       username,
@@ -30,9 +33,11 @@ class Login extends Component {
     const jwtToken = await response.json()
     // console.log(jwtToken.jwt_token)
     if (response.ok === true) {
+      // console.log('h')
       const {history} = this.props
-      history.replace('/')
+
       Cookies.set('jwt_token', jwtToken.jwt_token, {expires: 30})
+      history.replace('/')
       const jwt = Cookies.get('jwt_token')
       // console.log(jwt)
     }
@@ -78,7 +83,11 @@ class Login extends Component {
             onChange={this.onchangePassword}
           />
           <br />
-          <button type="button" className="login-btn" onClick={this.onLogin}>
+          <button
+            type="button"
+            className="login-btn"
+            onClick={this.onClickLogin}
+          >
             Login
           </button>
         </div>

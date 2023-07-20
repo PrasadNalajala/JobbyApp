@@ -4,11 +4,22 @@ import Cookies from 'js-cookie'
 
 import './index.css'
 
+import EmploymentTypesList from '../EmploymentTypesList'
+
+import SalaryRangesList from '../SalaryRangesList'
+
+// import SalaryRangesList from '../SalaryRangesList'
+
 class Jobs extends Component {
   state = {name: '', profileUrl: '', bio: '', jobs: [], totalJobs: 0}
 
   componentDidMount() {
     this.fetchProfile()
+  }
+
+  onclickHome = () => {
+    const {history} = this.props
+    history.replace('/')
   }
 
   fetchProfile = async () => {
@@ -30,25 +41,39 @@ class Jobs extends Component {
     // console.log(data.profile_details.name)
   }
 
+  onClickLogout = () => {
+    Cookies.remove('jwt_token')
+    const {history} = this.props
+    history.replace('/login')
+  }
+
   render() {
     const {name, profileUrl, bio} = this.state
-    // console.log(this.state)
+
+    //  console.log(employmentTypesList)
     return (
       <div className="jobs-bg">
         <div className="nav">
           <div>
             <img
+              onClick={this.onclickHome}
               src="https://assets.ccbp.in/frontend/react-js/logo-img.png"
               alt="logo"
               className="logo"
             />
           </div>
           <div className="jobs-link-container">
-            <h1 className="link">Home</h1>
+            <h1 className="link" onClick={this.onclickHome}>
+              Home
+            </h1>
             <h1 className="link">Jobs</h1>
           </div>
           <div>
-            <button type="button" className="logout-btn">
+            <button
+              type="button"
+              className="logout-btn"
+              onClick={this.onClickLogout}
+            >
               Logout
             </button>
           </div>
@@ -61,6 +86,9 @@ class Jobs extends Component {
               <p className="bio">{bio}</p>
             </div>
             <hr />
+            <EmploymentTypesList />
+            <hr />
+            <SalaryRangesList />
           </div>
           <div>
             <h1>nwii</h1>

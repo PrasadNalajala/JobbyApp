@@ -18,6 +18,7 @@
 }
 .logo {
   height: 50px;
+  cursor: pointer;
 }
 .logo-container {
   display: flex;
@@ -43,6 +44,7 @@ input {
   border-radius: 5px;
   border: none;
   height: 35px;
+  cursor: pointer;
   font-weight: 600;
 }
 #username {

@@ -1,0 +1,32 @@
+label {
+  font-size: 20px;
+}
+.emp-type-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+.employment-sec {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 5px;
+  margin: 0;
+}
+label {
+  padding: 0;
+  margin: 0;
+}
+.checkbox {
+  height: 15px;
+  width: 15px;
+  margin-right: 20px;
+}
+.emp-type {
+  font-size: 18px;
+  color: #ffffff;
+}
+.label {
+  font-size: 15px;
+}
