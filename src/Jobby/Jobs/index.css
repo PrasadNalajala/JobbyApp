@@ -1,16 +1,21 @@
 .jobs-bg {
-  background-image: url('https://assets.ccbp.in/frontend/react-js/home-lg-bg.png');
+  /*background-image: url('https://assets.ccbp.in/frontend/react-js/home-lg-bg.png');
+  */
+  background-color: #000000;
   min-height: 100vh;
   max-height: 100%;
   width: 100vw;
+  overflow: scroll;
 }
 .jobs-card {
   display: flex;
   justify-content: flex-start;
   align-items: flex-start;
+  padding: 40px;
 }
 .profile-section {
   width: 30%;
+  margin-right: 25px;
 }
 .profile {
 }
@@ -33,7 +38,7 @@
   color: #2c364c;
 }
 hr {
-  color: #2c364c;
+  color: #7e858e;
   width: 70%;
   text-align: start;
 }
@@ -45,4 +50,28 @@ body {
 input {
   padding: 0;
   margin: 0;
+}
+.search-container {
+  border-style: solid;
+  border-color: #7e858e;
+  border-width: 0.5px;
+  outline: none;
+  width: 400px;
+  display: flex;
+  align-items: center;
+}
+.search {
+  border: 0;
+  background-color: #000000;
+  color: #ffffff;
+  width: 350px;
+  outline: none;
+  padding-left: 15px;
+}
+.search-icon {
+  width: 50px;
+  font-size: 100%;
+  color: #ffffff;
+  cursor: pointer;
+  background-color: #272727;
 }

@@ -22,17 +22,35 @@ const salaryRangesList = [
 ]
 
 class SalaryRangesList extends Component {
+  state = {selectedSalary: ''}
+
+  handleSalaryRange = event => {
+    this.setState({selectedSalary: event.target.value}, () =>
+      this.handleSalaryRange1(),
+    )
+  }
+
+  handleSalaryRange1 = () => {
+    const {onChangeSalaryRange} = this.props
+    const {selectedSalary} = this.state
+    // console.log(selectedSalary)
+    onChangeSalaryRange(selectedSalary)
+  }
+
   render() {
+    // const {selectedSalary} = this.state
     return (
       <div>
         <h1 className="emp-type">Salary Range</h1>
         {salaryRangesList.map(each => (
-          <div className="employment-sec">
+          <div className="employment-sec" key={each.salaryRangeId}>
             <input
               className="checkbox"
               type="radio"
               name="salaryRange"
               id={each.salaryRangeId}
+              value={each.salaryRangeId}
+              onChange={this.handleSalaryRange}
             />
             <label className="label" htmlFor={each.id}>
               {each.label}
