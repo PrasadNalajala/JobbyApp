@@ -19,6 +19,7 @@
 }
 .job-container {
   display: flex;
+  text-decoration: none;
   background-color: #272727;
   padding: 15px;
   border-radius: 10px;
@@ -65,5 +66,5 @@ hr {
 .description-title {
   font-size: 20px;
   font-family: default;
-  font-weight: 400;
+  font-weight: 500;
 }

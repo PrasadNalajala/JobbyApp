@@ -1,15 +1,18 @@
 import './index.css'
+import {Link} from 'react-router-dom'
 
 import {AiFillStar} from 'react-icons/ai'
+import {FaSuitcase} from 'react-icons/fa'
 
-import {IoLocationSharp} from 'react-icons/io'
+import {IoLocationSharp} from 'react-icons/io5'
 
-// import {PiSuitcaseSimpleLight} from 'react-icons/pi'
+// import {MdOutlineWork} from 'react-icons/md'
+// import {from} from 'array-flatten'
 
 const JobItem = props => {
   const {jobItem} = props
   return (
-    <div className="job-container">
+    <Link to={`/jobs/${jobItem.id}`} className="job-container">
       <div className="logo-container">
         <img
           src={jobItem.company_logo_url}
@@ -26,7 +29,9 @@ const JobItem = props => {
       </div>
       <div className="details">
         <div className="location-container">
+          <IoLocationSharp />
           <p className="location">{jobItem.location}</p>
+          <FaSuitcase />
           <p className="employment-type">{jobItem.employment_type}</p>
         </div>
         <h1 className="package">{jobItem.package_per_annum}</h1>
@@ -34,7 +39,7 @@ const JobItem = props => {
       <hr />
       <h1 className="description-title">Description</h1>
       <p>{jobItem.job_description}</p>
-    </div>
+    </Link>
   )
 }
 

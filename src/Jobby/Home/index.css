@@ -2,15 +2,18 @@
   background-color: #272727;
   display: flex;
   justify-content: space-around;
+
   align-items: center;
   padding: 5px;
+  margin: 0;
 }
 .jobs-link-container {
   display: flex;
   align-items: center;
 }
 .link {
-  padding-right: 20px;
+  padding-right: 25px;
+  margin: 0;
   color: #ffffff;
   font-size: 25px;
   cursor: pointer;
@@ -19,6 +22,7 @@
   background-color: #4f46e5;
   color: #ffffff;
   width: 100px;
+  margin-right: 50px;
   cursor: pointer;
   border: none;
   font-weight: 700;
@@ -54,4 +58,8 @@
 }
 .card {
   padding-left: 100px;
+}
+
+.nav-logo {
+  padding-left: 30px;
 }

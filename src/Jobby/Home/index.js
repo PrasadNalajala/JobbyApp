@@ -20,7 +20,7 @@ class Home extends Component {
     return (
       <div className="home-bg">
         <div className="nav">
-          <div>
+          <div className="nav-logo">
             <img
               src="https://assets.ccbp.in/frontend/react-js/logo-img.png"
               alt="logo"

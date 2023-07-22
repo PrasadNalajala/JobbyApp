@@ -1,10 +1,10 @@
 import {Component} from 'react'
 import Cookies from 'js-cookie'
-
+import Loader from 'react-loader-spinner'
 import './index.css'
 
 class Login extends Component {
-  state = {username: '', password: ''}
+  state = {username: '', password: '', errorMsg: '', isLoading: false}
 
   componentDidMount() {
     const jwt = Cookies.get('jwt_token')
@@ -29,8 +29,10 @@ class Login extends Component {
       method: 'POST',
       body: JSON.stringify(req),
     }
+    this.setState({isLoading: true})
     const response = await fetch('https://apis.ccbp.in/login', options)
     const jwtToken = await response.json()
+
     // console.log(jwtToken.jwt_token)
     if (response.ok === true) {
       // console.log('h')
@@ -38,8 +40,17 @@ class Login extends Component {
 
       Cookies.set('jwt_token', jwtToken.jwt_token, {expires: 30})
       history.replace('/')
+      this.setState({isLoading: false})
       const jwt = Cookies.get('jwt_token')
+
       // console.log(jwt)
+    } else {
+      this.setState({
+        username: '',
+        isLoading: false,
+        password: '',
+        errorMsg: '*Username and Password Did Not Matched',
+      })
     }
   }
 
@@ -52,7 +63,7 @@ class Login extends Component {
   }
 
   render() {
-    const {username, password} = this.state
+    const {username, password, errorMsg, isLoading} = this.state
     return (
       <div className="login-bg">
         <div className="login-card">
@@ -63,33 +74,42 @@ class Login extends Component {
               className="logo"
             />
           </div>
-          <label htmlFor="username">USERNAME</label>
+          {!isLoading ? (
+            <>
+              <label htmlFor="username">USERNAME</label>
 
-          <input
-            type="text"
-            id="username"
-            placeholder="Username"
-            onChange={this.onchangeUsername}
-            value={username}
-          />
+              <input
+                type="text"
+                id="username"
+                placeholder="Username"
+                onChange={this.onchangeUsername}
+                value={username}
+              />
 
-          <label htmlFor="password">PASSWORD</label>
+              <label htmlFor="password">PASSWORD</label>
 
-          <input
-            type="password"
-            id="password"
-            placeholder="Password"
-            value={password}
-            onChange={this.onchangePassword}
-          />
-          <br />
-          <button
-            type="button"
-            className="login-btn"
-            onClick={this.onClickLogin}
-          >
-            Login
-          </button>
+              <input
+                type="password"
+                id="password"
+                placeholder="Password"
+                value={password}
+                onChange={this.onchangePassword}
+              />
+              <br />
+              <button
+                type="button"
+                className="login-btn"
+                onClick={this.onClickLogin}
+              >
+                Login
+              </button>
+              <p className="error-msg">{errorMsg}</p>
+            </>
+          ) : (
+            <div className="loader-container" id="login-loader">
+              <Loader type="ThreeDots" color="#ffffff" height="50" width="50" />
+            </div>
+          )}
         </div>
       </div>
     )

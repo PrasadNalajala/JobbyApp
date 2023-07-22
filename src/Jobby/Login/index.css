@@ -11,7 +11,7 @@
   display: flex;
   flex-direction: column;
   border-radius: 10px;
-  width: fit-content;
+  width: 500px;
   height: 400px;
 
   padding: 30px;
@@ -43,6 +43,7 @@ input {
   background-color: #4f46e5;
   border-radius: 5px;
   border: none;
+  width: 400px;
   height: 35px;
   cursor: pointer;
   font-weight: 600;
@@ -61,4 +62,20 @@ input {
   input {
     width: 300px;
   }
+}
+.error-msg {
+  color: red;
+}
+#username {
+  margin-bottom: 15px;
+  padding: 5px;
+}
+::placeholder {
+  padding: 5px;
+}
+#password {
+  padding: 5px;
+}
+#login-loader {
+  background-color: #272727;
 }
