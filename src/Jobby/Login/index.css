@@ -56,11 +56,24 @@ input {
 }
 @media (max-width: 576px) {
   .login-card {
-    width: fit-content;
+    width: 100%;
     padding: 20px;
   }
   input {
     width: 300px;
+  }
+  input {
+    width: 95%;
+  }
+  .login-btn {
+    width: 95%;
+  }
+  .login-bg {
+    width: 100%;
+    padding: 20px;
+  }
+  .login-loader {
+    align-items: center;
   }
 }
 .error-msg {

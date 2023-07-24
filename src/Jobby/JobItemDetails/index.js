@@ -6,11 +6,11 @@ import './index.css'
 import {Link} from 'react-router-dom'
 
 import {AiFillStar} from 'react-icons/ai'
-
 import {FiExternalLink} from 'react-icons/fi'
 import {FaSuitcase} from 'react-icons/fa'
 import {IoLocationSharp} from 'react-icons/io5'
 import SimilarJob from '../SimilarJob'
+import Navbar from '../Navbar'
 
 class JobItemDetails extends Component {
   state = {jobItem: {}, isLoading: true, similarJobs: []}
@@ -54,6 +54,11 @@ class JobItemDetails extends Component {
     })
   }
 
+  onClickHome = () => {
+    const {history} = this.props
+    history.replace('/')
+  }
+
   render() {
     const {jobItem, isLoading, similarJobs} = this.state
     const jobDetails = jobItem.job_details
@@ -70,7 +75,9 @@ class JobItemDetails extends Component {
             />
           </div>
           <div className="jobs-link-container">
-            <h1 className="link">Home</h1>
+            <h1 className="link" onClick={this.onClickHome}>
+              Home
+            </h1>
             <h1 className="link" onClick={this.onclickFindJobs}>
               Jobs
             </h1>
@@ -85,6 +92,7 @@ class JobItemDetails extends Component {
             </button>
           </div>
         </div>
+        <Navbar className="nav-sm" />
         <div className="loader-container">
           <Loader type="ThreeDots" color="#ffffff" height="50" width="50" />
         </div>

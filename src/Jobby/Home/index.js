@@ -1,5 +1,7 @@
 import {Component} from 'react'
 import Cookies from 'js-cookie'
+import Navbar from '../Navbar'
+
 import './index.css'
 
 class Home extends Component {
@@ -43,6 +45,7 @@ class Home extends Component {
             </button>
           </div>
         </div>
+        <Navbar className="nav-sm" />
         <div className="card">
           <h1 className="heading">Find the job that fits your life</h1>
           <p className="description">
