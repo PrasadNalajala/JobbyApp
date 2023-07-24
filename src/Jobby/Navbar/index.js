@@ -6,7 +6,9 @@ import {FaSuitcase} from 'react-icons/fa'
 
 import {IoLogOutOutline} from 'react-icons/io5'
 
-import {Cookies} from 'js-cookie'
+import Cookies from 'js-cookie'
+
+import {withRouter} from 'react-router-dom'
 
 const Navbar = props => {
   const onclickFindJobs = () => {
@@ -45,4 +47,4 @@ const Navbar = props => {
   )
 }
 
-export default Navbar
+export default withRouter(Navbar)

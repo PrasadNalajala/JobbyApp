@@ -30,10 +30,10 @@
   border-radius: 5px;
 }
 .home-bg {
-  background-image: url('https://assets.ccbp.in/frontend/react-js/home-lg-bg.png');
   min-height: 100vh;
   height: 100%;
   width: 100vw;
+  background-size: cover;
 }
 .heading {
   font-size: 80px;
@@ -42,7 +42,7 @@
   max-width: 60%;
 }
 .description {
-  color: #ffffff;
+  color: #cbd5e1;
   font-size: 25px;
   max-width: 60%;
 }
@@ -70,10 +70,12 @@
   }
   .heading {
     font-size: 30px;
-    width: fit-content;
+    width: 100%;
+    max-width: 100%;
+    padding-top: 0px;
   }
   .description {
-    width: 100%;
+    max-width: 100%;
   }
   .card {
     display: flex;
@@ -85,9 +87,19 @@
     height: 30px;
     margin: 5px;
   }
+  .home-bg {
+    background-image: url('https://assets.ccbp.in/frontend/react-js/home-sm-bg.png');
+  }
+  .card {
+    padding-left: 5px;
+    padding: 20px;
+  }
 }
 @media (min-width: 768px) {
   .nav-sm {
     display: none;
+  }
+  .home-bg {
+    background-image: url('https://assets.ccbp.in/frontend/react-js/home-lg-bg.png');
   }
 }

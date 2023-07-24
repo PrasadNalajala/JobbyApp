@@ -19,6 +19,7 @@
   margin-right: 25px;
 }
 .profile {
+  height: 50px;
 }
 .profile-container {
   background-image: url('https://assets.ccbp.in/frontend/react-js/profile-bg.png');
@@ -28,19 +29,21 @@
   padding: 15px;
   align-items: flex-start;
   background-repeat: no-repeat;
-  width: 300px;
-  height: 250px;
+  width: 250px;
+  height: 200px;
   background-size: auto 100%;
 }
 .name {
   color: #6366f1;
+  font-size: 20px;
 }
 .bio {
   color: #2c364c;
+  font-size: 15px;
 }
 hr {
   color: #7e858e;
-  width: 70%;
+  width: 250px;
   text-align: start;
 }
 body {
@@ -59,7 +62,19 @@ input {
   outline: none;
   width: 400px;
   display: flex;
+  justify-content: space-between;
   align-items: center;
+}
+.search-container-sm {
+  border-style: solid;
+  border-color: #7e858e;
+  border-width: 0.5px;
+  outline: none;
+  width: 85vw;
+  justify-content: space-between;
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
 }
 .search {
   border: 0;
@@ -71,7 +86,8 @@ input {
 }
 .search-icon {
   width: 50px;
-  font-size: 100%;
+  font-size: 20px;
+  height: 30px;
   color: #ffffff;
   cursor: pointer;
   background-color: #272727;
@@ -86,4 +102,39 @@ input {
 .logo {
   margin: 0;
   padding: 0;
+}
+@media (min-width: 768px) {
+  .search-container-sm {
+    display: none;
+  }
+}
+@media (max-width: 768px) {
+  .search-container {
+    display: none;
+    justify-content: space-between;
+  }
+  .jobs-card {
+    display: flex;
+    flex-direction: column;
+  }
+  .profile-container {
+    width: 85vw;
+    height: 190px;
+    background-size: cover;
+  }
+}
+#login-loader {
+  background-color: #000000;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+#profile-loader {
+  background-color: transparent;
+  color: #000000;
+}
+.loader-container {
+  padding-left: 50%;
+  padding-top: 50%;
 }

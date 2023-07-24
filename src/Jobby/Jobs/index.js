@@ -1,5 +1,5 @@
 import {Component} from 'react'
-
+import Loader from 'react-loader-spinner'
 import Cookies from 'js-cookie'
 
 import './index.css'
@@ -10,6 +10,8 @@ import EmploymentTypesList from '../EmploymentTypesList'
 import SalaryRangesList from '../SalaryRangesList'
 
 import JobItem from '../JobItem'
+
+import Navbar from '../Navbar'
 
 // import SalaryRangesList from '../SalaryRangesList'
 
@@ -23,10 +25,13 @@ class Jobs extends Component {
     searchInput: '',
     selectedSalaryRange: '',
     employmentTypesSelected: [],
+    isJobsLoading: true,
+    isProfileLoading: true,
   }
 
   componentDidMount() {
     this.fetchProfile()
+    this.fetchJobs()
   }
 
   onclickHome = () => {
@@ -63,7 +68,11 @@ class Jobs extends Component {
     )}&minimum_package=${selectedSalaryRange}&search=${searchInput}`
     const response = await fetch(url, options)
     const data = await response.json()
-    this.setState({jobs: data.jobs, totalJobs: data.total})
+    this.setState({
+      jobs: data.jobs,
+      totalJobs: data.total,
+      isJobsLoading: false,
+    })
   }
 
   fetchProfile = async () => {
@@ -81,6 +90,7 @@ class Jobs extends Component {
       name: data.profile_details.name,
       profileUrl: data.profile_details.profile_image_url,
       bio: data.profile_details.short_bio,
+      isProfileLoading: false,
     })
     // console.log(data.profile_details.name)
   }
@@ -96,7 +106,15 @@ class Jobs extends Component {
   }
 
   render() {
-    const {name, profileUrl, bio, jobs, totalJobs} = this.state
+    const {
+      name,
+      profileUrl,
+      bio,
+      jobs,
+      totalJobs,
+      isJobsLoading,
+      isProfileLoading,
+    } = this.state
     console.log(jobs)
 
     //  console.log(employmentTypesList)
@@ -127,12 +145,38 @@ class Jobs extends Component {
             </button>
           </div>
         </div>
+        <Navbar className="nav-sm" />
         <div className="jobs-card">
+          <div className="search-container-sm">
+            <input
+              type="text"
+              placeholder="Search"
+              className="search"
+              onChange={this.onEnterSearchInput}
+            />
+            <ImSearch className="search-icon" onClick={this.fetchJobs} />
+          </div>
           <div className="profile-section">
             <div className="profile-container">
-              <img src={profileUrl} alt="profile" className="profile" />
-              <h1 className="name">{name}</h1>
-              <p className="bio">{bio}</p>
+              {!isProfileLoading ? (
+                <>
+                  <img src={profileUrl} alt="profile" className="profile" />
+                  <h1 className="name">{name}</h1>
+                  <p className="bio">{bio}</p>
+                </>
+              ) : (
+                <div
+                  className="loader-container"
+                  id="login-loader profile-loader"
+                >
+                  <Loader
+                    type="ThreeDots"
+                    color="#ffffff"
+                    height="50"
+                    width="50"
+                  />
+                </div>
+              )}
             </div>
             <hr />
             <EmploymentTypesList
@@ -151,9 +195,22 @@ class Jobs extends Component {
               />
               <ImSearch className="search-icon" onClick={this.fetchJobs} />
             </div>
-            {jobs.map(each => (
-              <JobItem jobItem={each} key={each.id} />
-            ))}
+            {!isJobsLoading ? (
+              <>
+                {jobs.map(each => (
+                  <JobItem jobItem={each} key={each.id} />
+                ))}
+              </>
+            ) : (
+              <div className="loader-container" id="login-loader">
+                <Loader
+                  type="ThreeDots"
+                  color="#ffffff"
+                  height="50"
+                  width="50"
+                />
+              </div>
+            )}
           </div>
         </div>
       </div>
