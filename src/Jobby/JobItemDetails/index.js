@@ -13,7 +13,7 @@ import SimilarJob from '../SimilarJob'
 import Navbar from '../Navbar'
 
 class JobItemDetails extends Component {
-  state = {jobItem: {}, isLoading: true, similarJobs: []}
+  state = {jobItem: {}, isLoading: true, similarJobs: [], isFetchError: false}
 
   componentDidMount() {
     this.getJobItemDetails()
@@ -33,6 +33,7 @@ class JobItemDetails extends Component {
   }
 
   getJobItemDetails = async () => {
+    this.setState({isLoading: true})
     const jwt = Cookies.get('jwt_token')
     const {match} = this.props
     const {id} = match.params
@@ -47,11 +48,19 @@ class JobItemDetails extends Component {
     const response = await fetch(url, options)
     const data = await response.json()
     // console.log(id, data)
-    this.setState({
-      jobItem: data,
-      isLoading: false,
-      similarJobs: data.similar_jobs,
-    })
+    if (response.ok) {
+      this.setState({
+        jobItem: data,
+        isLoading: false,
+        similarJobs: data.similar_jobs,
+        isFetchError: false,
+      })
+    } else {
+      this.setState({
+        isLoading: false,
+        isFetchError: true,
+      })
+    }
   }
 
   onClickHome = () => {
@@ -60,7 +69,7 @@ class JobItemDetails extends Component {
   }
 
   render() {
-    const {jobItem, isLoading, similarJobs} = this.state
+    const {jobItem, isLoading, similarJobs, isFetchError} = this.state
     const jobDetails = jobItem.job_details
     console.log(similarJobs)
     return (
@@ -99,74 +108,99 @@ class JobItemDetails extends Component {
             <Loader type="ThreeDots" color="#ffffff" height="50" width="50" />
           </div>
         ) : (
-          <div className="job-details-container">
-            <div className="job-container">
-              <div className="logo-container">
-                <img
-                  src={jobDetails.company_logo_url}
-                  alt="job details company logo"
-                  className="logo"
-                />
-                <div className="role-container">
-                  <h1 className="role">{jobDetails.title}</h1>
-                  <div className="rating-container">
-                    <AiFillStar className="star" />
-                    <p className="rating">{jobDetails.rating}</p>
-                  </div>
-                </div>
-              </div>
-              <div className="details">
-                <div className="location-container">
-                  <IoLocationSharp />
-                  <p className="location">{jobDetails.location}</p>
-                  <FaSuitcase />
-                  <p className="employment-type">
-                    {jobDetails.employment_type}
-                  </p>
-                </div>
-                <h1 className="package">{jobDetails.package_per_annum}</h1>
-              </div>
-              <hr />
-              <div className="description-container ">
-                <h1 className="description-title">Description</h1>
-                <a href={jobDetails.company_website_url} className="visit-link">
-                  <p className="visit">Visit</p>
-                  <FiExternalLink />
-                </a>
-              </div>
-              <p>{jobDetails.job_description}</p>
-              <h1 className="skills-h1"> Skills</h1>
-              <div className="skills-section">
-                {jobDetails.skills.map(each => (
-                  <div className="skill-container" key={each.name}>
+          <>
+            {!isFetchError ? (
+              <div className="job-details-container">
+                <div className="job-container">
+                  <div className="logo-container">
                     <img
-                      alt={each.name}
-                      src={each.image_url}
-                      className="skill-img"
+                      src={jobDetails.company_logo_url}
+                      alt="job details company logo"
+                      className="logo"
                     />
-                    <p className="skill-name">{each.name}</p>
+                    <div className="role-container">
+                      <h1 className="role">{jobDetails.title}</h1>
+                      <div className="rating-container">
+                        <AiFillStar className="star" />
+                        <p className="rating">{jobDetails.rating}</p>
+                      </div>
+                    </div>
                   </div>
-                ))}
+                  <div className="details">
+                    <div className="location-container">
+                      <IoLocationSharp />
+                      <p className="location">{jobDetails.location}</p>
+                      <FaSuitcase />
+                      <p className="employment-type">
+                        {jobDetails.employment_type}
+                      </p>
+                    </div>
+                    <h1 className="package">{jobDetails.package_per_annum}</h1>
+                  </div>
+                  <hr />
+                  <div className="description-container ">
+                    <h1 className="description-title">Description</h1>
+                    <a
+                      href={jobDetails.company_website_url}
+                      className="visit-link"
+                    >
+                      <p className="visit">Visit</p>
+                      <FiExternalLink />
+                    </a>
+                  </div>
+                  <p>{jobDetails.job_description}</p>
+                  <h1 className="skills-h1"> Skills</h1>
+                  <div className="skills-section">
+                    {jobDetails.skills.map(each => (
+                      <div className="skill-container" key={each.name}>
+                        <img
+                          alt={each.name}
+                          src={each.image_url}
+                          className="skill-img"
+                        />
+                        <p className="skill-name">{each.name}</p>
+                      </div>
+                    ))}
+                  </div>
+                  <h1 className="skills-h1">Life at Company</h1>
+                  <div className="life-at-company">
+                    <p className="company-desc">
+                      {jobDetails.life_at_company.description}
+                    </p>
+                    <img
+                      src={jobDetails.life_at_company.image_url}
+                      className="cmpny-life-url"
+                      alt="life at company"
+                    />
+                  </div>
+                </div>
+                <h1 className="description-title">Similar Jobs</h1>
+                <div className="similar-job-container">
+                  {similarJobs.map(each => (
+                    <SimilarJob similarJob={each} key={each.id} />
+                  ))}
+                </div>
               </div>
-              <h1 className="skills-h1">Life at Company</h1>
-              <div className="life-at-company">
-                <p className="company-desc">
-                  {jobDetails.life_at_company.description}
-                </p>
+            ) : (
+              <div className="Notfound-container">
                 <img
-                  src={jobDetails.life_at_company.image_url}
-                  className="cmpny-life-url"
-                  alt="life at company"
+                  src="https://assets.ccbp.in/frontend/react-js/failure-img.png"
+                  alt="failure view"
                 />
+                <h1>Oops! Something Went Wrong</h1>
+                <p className="notfound-p">
+                  We cannot seem to find the page you are looking for
+                </p>
+                <button
+                  type="button"
+                  className="retry-btn"
+                  onClick={this.getJobItemDetails}
+                >
+                  Retry
+                </button>
               </div>
-            </div>
-            <h1 className="description-title">Similar Jobs</h1>
-            <div className="similar-job-container">
-              {similarJobs.map(each => (
-                <SimilarJob similarJob={each} key={each.id} />
-              ))}
-            </div>
-          </div>
+            )}
+          </>
         )}
       </div>
     )

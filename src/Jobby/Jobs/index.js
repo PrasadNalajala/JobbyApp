@@ -27,6 +27,8 @@ class Jobs extends Component {
     employmentTypesSelected: [],
     isJobsLoading: true,
     isProfileLoading: true,
+    isFetchError: false,
+    isProfileFetchError: false,
   }
 
   componentDidMount() {
@@ -52,6 +54,7 @@ class Jobs extends Component {
 
   fetchJobs = async () => {
     const jwt = Cookies.get('jwt_token')
+    this.setState({isJobsLoading: true})
     const {
       employmentTypesSelected,
       selectedSalaryRange,
@@ -68,14 +71,26 @@ class Jobs extends Component {
     )}&minimum_package=${selectedSalaryRange}&search=${searchInput}`
     const response = await fetch(url, options)
     const data = await response.json()
-    this.setState({
-      jobs: data.jobs,
-      totalJobs: data.total,
-      isJobsLoading: false,
-    })
+    console.log(response)
+    if (response.ok) {
+      this.setState({
+        jobs: data.jobs,
+        totalJobs: data.total,
+        isJobsLoading: false,
+        isFetchError: false,
+      })
+    } else {
+      this.setState({
+        jobs: [],
+        isJobsLoading: false,
+        totalJobs: 0,
+        isFetchError: true,
+      })
+    }
   }
 
   fetchProfile = async () => {
+    this.setState({isProfileLoading: true})
     const jwt = Cookies.get('jwt_token')
     const url = 'https://apis.ccbp.in/profile'
     const options = {
@@ -86,12 +101,20 @@ class Jobs extends Component {
     }
     const response = await fetch(url, options)
     const data = await response.json()
-    this.setState({
-      name: data.profile_details.name,
-      profileUrl: data.profile_details.profile_image_url,
-      bio: data.profile_details.short_bio,
-      isProfileLoading: false,
-    })
+    if (response.ok) {
+      this.setState({
+        name: data.profile_details.name,
+        profileUrl: data.profile_details.profile_image_url,
+        bio: data.profile_details.short_bio,
+        isProfileLoading: false,
+        isProfileFetchError: false,
+      })
+    } else {
+      this.setState({
+        isProfileFetchError: true,
+        isProfileLoading: false,
+      })
+    }
     // console.log(data.profile_details.name)
   }
 
@@ -113,7 +136,9 @@ class Jobs extends Component {
       jobs,
       totalJobs,
       isJobsLoading,
+      isFetchError,
       isProfileLoading,
+      isProfileFetchError,
     } = this.state
     console.log(jobs)
 
@@ -160,9 +185,23 @@ class Jobs extends Component {
             <div className="profile-container">
               {!isProfileLoading ? (
                 <>
-                  <img src={profileUrl} alt="profile" className="profile" />
-                  <h1 className="name">{name}</h1>
-                  <p className="bio">{bio}</p>
+                  {!isProfileFetchError ? (
+                    <>
+                      <img src={profileUrl} alt="profile" className="profile" />
+                      <h1 className="name">{name}</h1>
+                      <p className="bio">{bio}</p>
+                    </>
+                  ) : (
+                    <>
+                      <button
+                        type="button"
+                        className="retry-btn profile-retry"
+                        onClick={this.fetchProfile}
+                      >
+                        Retry
+                      </button>
+                    </>
+                  )}
                 </>
               ) : (
                 <div
@@ -197,9 +236,31 @@ class Jobs extends Component {
             </div>
             {!isJobsLoading ? (
               <>
-                {jobs.map(each => (
-                  <JobItem jobItem={each} key={each.id} />
-                ))}
+                {!isFetchError ? (
+                  <>
+                    {jobs.map(each => (
+                      <JobItem jobItem={each} key={each.id} />
+                    ))}
+                  </>
+                ) : (
+                  <div className="Notfound-container">
+                    <img
+                      src="https://assets.ccbp.in/frontend/react-js/failure-img.png"
+                      alt="failure view"
+                    />
+                    <h1>Oops! Something Went Wrong</h1>
+                    <p className="notfound-p">
+                      We cannot seem to find the page you are looking for
+                    </p>
+                    <button
+                      type="button"
+                      className="retry-btn"
+                      onClick={this.fetchJobs}
+                    >
+                      Retry
+                    </button>
+                  </div>
+                )}
               </>
             ) : (
               <div className="loader-container" id="login-loader">

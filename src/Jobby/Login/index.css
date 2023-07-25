@@ -72,8 +72,11 @@ input {
     width: 100%;
     padding: 20px;
   }
-  .login-loader {
+  #login-loader {
     align-items: center;
+  }
+  #login-logo {
+    margin-bottom: 20px;
   }
 }
 .error-msg {
@@ -89,6 +92,6 @@ input {
 #password {
   padding: 5px;
 }
-#login-loader {
-  background-color: #272727;
+.loader-container {
+  color: #272727;
 }

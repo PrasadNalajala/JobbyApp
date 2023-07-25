@@ -138,3 +138,15 @@ input {
   padding-left: 50%;
   padding-top: 50%;
 }
+.retry-btn {
+  border: 0;
+  background-color: #4f46e5;
+  color: #ffffff;
+  height: 30px;
+  width: 80px;
+  border-radius: 2px;
+  cursor: pointer;
+}
+.profile-retry {
+  margin-left: 20%;
+}

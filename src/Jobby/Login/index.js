@@ -67,7 +67,7 @@ class Login extends Component {
     return (
       <div className="login-bg">
         <div className="login-card">
-          <div className="logo-container">
+          <div className="logo-container" id="login-logo">
             <img
               src="https://assets.ccbp.in/frontend/react-js/logo-img.png"
               alt="logo"
