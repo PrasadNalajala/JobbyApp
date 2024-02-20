@@ -4,7 +4,7 @@ import Loader from 'react-loader-spinner'
 import './index.css'
 
 class Login extends Component {
-  state = {username: '', password: '', errorMsg: '', isLoading: false}
+  state = {username: 'rahul', password: 'rahul@2021', errorMsg: '', isLoading: false}
 
   componentDidMount() {
     const jwt = Cookies.get('jwt_token')
