@@ -83,7 +83,7 @@ class Login extends Component {
                 id="username"
                 placeholder="Username"
                 onChange={this.onchangeUsername}
-                value={username}
+                value='rahul'
               />
 
               <label htmlFor="password">PASSWORD</label>
@@ -92,7 +92,7 @@ class Login extends Component {
                 type="password"
                 id="password"
                 placeholder="Password"
-                value={password}
+                value='rahul@2021'
                 onChange={this.onchangePassword}
               />
               <br />
